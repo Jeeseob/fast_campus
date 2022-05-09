@@ -2,7 +2,7 @@ package com.todoList.todoListDemo.Todo.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todoList.todoListDemo.Dto.TodoRequest;
-import com.todoList.todoListDemo.Todo.model.TodoEntity;
+import com.todoList.todoListDemo.Todo.model.TodoModel;
 import com.todoList.todoListDemo.Todo.service.TodoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,11 +28,11 @@ class todoControllerTest {
     @MockBean
     private TodoService todoService;
 
-    private TodoEntity expected;
+    private TodoModel expected;
 
     @BeforeEach
     void setUp() {
-        this.expected = new TodoEntity();
+        this.expected = new TodoModel();
         this.expected.setId(123L);
         this.expected.setTitle("Test Title");
         this.expected.setOrder(0L);
@@ -44,7 +44,7 @@ class todoControllerTest {
         when(this.todoService.add(any(TodoRequest.class)))
                 .then((i) -> {
                     TodoRequest request = i.getArgument(0, TodoRequest.class);
-                    return new TodoEntity(
+                    return new TodoModel(
                             this.expected.getId(),
                             request.getTitle(),
                             this.expected.getOrder(), this.expected.getCompleted());

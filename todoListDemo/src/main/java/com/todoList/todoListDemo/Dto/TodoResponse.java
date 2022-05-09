@@ -1,6 +1,6 @@
 package com.todoList.todoListDemo.Dto;
 
-import com.todoList.todoListDemo.Todo.model.TodoEntity;
+import com.todoList.todoListDemo.Todo.model.TodoModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class TodoResponse {
     private Boolean completed;
     private String url;
 
-    public TodoResponse(TodoEntity todoEntity) {
+    public TodoResponse(TodoModel todoEntity) {
         this.id = todoEntity.getId();
         this.title = todoEntity.getTitle();
         this.order = todoEntity.getOrder();

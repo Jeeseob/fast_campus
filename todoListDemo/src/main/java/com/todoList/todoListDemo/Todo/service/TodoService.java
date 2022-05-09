@@ -1,7 +1,7 @@
 package com.todoList.todoListDemo.Todo.service;
 
 import com.todoList.todoListDemo.Dto.TodoRequest;
-import com.todoList.todoListDemo.Todo.model.TodoEntity;
+import com.todoList.todoListDemo.Todo.model.TodoModel;
 import com.todoList.todoListDemo.Todo.repository.TodoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,8 +21,8 @@ public class TodoService {
      * @param todoRequest
      * @return
      */
-    public TodoEntity add(TodoRequest todoRequest) {
-        TodoEntity todoEntity = new TodoEntity();
+    public TodoModel add(TodoRequest todoRequest) {
+        TodoModel todoEntity = new TodoModel();
 
         todoEntity.setTitle(todoRequest.getTitle());
         todoEntity.setOrder(todoRequest.getOrder());
@@ -36,7 +36,7 @@ public class TodoService {
      * @param id
      * @return
      */
-    public TodoEntity searchById(Long id) {
+    public TodoModel searchById(Long id) {
         return this.todoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
@@ -45,7 +45,7 @@ public class TodoService {
      * todo 리스트 전체 목록을 조회
      * @return
      */
-    public List<TodoEntity> searchAll() {
+    public List<TodoModel> searchAll() {
         return this.todoRepository.findAll();
     }
 
@@ -55,8 +55,8 @@ public class TodoService {
      * @param todoRequest
      * @return
      */
-    public TodoEntity updateById(Long id, TodoRequest todoRequest) {
-        TodoEntity todoEntity = this.searchById(id);
+    public TodoModel updateById(Long id, TodoRequest todoRequest) {
+        TodoModel todoEntity = this.searchById(id);
 
         if(todoRequest.getTitle() != null) {
             todoEntity.setTitle(todoRequest.getTitle());
