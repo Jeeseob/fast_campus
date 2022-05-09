@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 @AllArgsConstructor
 @RequestMapping("/")
-public class todoController {
+public class TodoController {
     private final TodoService service;
 
     @PostMapping
