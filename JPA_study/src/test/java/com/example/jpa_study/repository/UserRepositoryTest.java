@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,11 +23,18 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     @Test
+    @Transactional // 세션 유지
     void crud() {
-        /**
-         * Test시에, 특정 ArrayList를 만들면, 코드가 복잡해지기 때문에, Lists.newArrayList를 사용한다.
-         */
-        List<User> users = userRepository.findAllById(Lists.newArrayList(1L, 3L, 5L));
-        users.forEach(System.out::println);
+        User user = userRepository.getOne(1L);
+        System.out.println(user);
+
+        User user3 = userRepository.findById(1L).orElse(null);
+        System.out.println(user3);
+
+        User user1 = new User("jack", "jack@gmail.com");
+        User user2 = new User("steve", "seteve@gamil.com");
+
+        userRepository.saveAll(Lists.newArrayList(user1, user2));
+        List<User> users = userRepository.findAll();
     }
 }
