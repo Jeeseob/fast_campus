@@ -34,7 +34,7 @@ class UserRepositoryTest {
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnorePaths("name")
-                .withMatcher("email", endsWith()); // contains : 포함 / endsWith : 끝이 일치
+                .withMatcher("email", endsWith()); // contains : 포함 / endsWith : 끝이 일ㅡㄷㅅ
 
         Example<User> example = Example.of(new User("ma", "fastcampus.com"), matcher);
 
