@@ -5,6 +5,8 @@ import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -12,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers.endsWith;
 
 /**
  * @Author : Jeeseob
@@ -23,6 +26,21 @@ class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    @Test
+    @Transactional
+    void exampleMatcher() {
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("name")
+                .withMatcher("email", endsWith()); // contains : 포함 / endsWith : 끝이 일치
+
+        Example<User> example = Example.of(new User("ma", "fastcampus.com"), matcher);
+
+        // user 중 fastcampus.com으로 이메일이 끝나는 경우만 출력
+        userRepository.findAll(example).forEach(System.out::println);
+    }
 
     @Test
     @Transactional // 세션 유지
