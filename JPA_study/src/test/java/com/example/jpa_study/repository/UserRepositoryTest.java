@@ -30,6 +30,18 @@ class UserRepositoryTest {
 
     @Test
     @Transactional
+    void update() {
+        userRepository.save(new User("david", "david@fascampus.com"));
+
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setEmail("martin-update@fastcampus.com");
+
+        userRepository.save(user);
+    }
+
+
+    @Test
+    @Transactional
     void exampleMatcher() {
 
         ExampleMatcher matcher = ExampleMatcher.matching()
@@ -75,13 +87,13 @@ class UserRepositoryTest {
     @Transactional
     void count() {
 
-//        // 해당 테이블에 몇개의 데이터가 존재하는지
-//        long count = userRepository.count();
-//        System.out.println(count);
-//
-//        // 해당 id를 가지는 값이 존재하는지
-//        boolean exsist = userRepository.existsById(1L);
-//        System.out.println(exsist);
+        // 해당 테이블에 몇개의 데이터가 존재하는지
+        long count = userRepository.count();
+        System.out.println(count);
+
+        // 해당 id를 가지는 값이 존재하는지
+        boolean exsist = userRepository.existsById(1L);
+        System.out.println(exsist);
 
 
     }
@@ -92,8 +104,8 @@ class UserRepositoryTest {
 //        // 저장하고, DB로 보내기
 //        userRepository.save(new User("new martin", "martin@gmail.com"));
 //        userRepository.flush();
-//        // saveAndFlush = save + flush 기능
 
+        // saveAndFlush = save + flush 기능
         userRepository.saveAndFlush(new User("new martin", "martin@gmail.com"));
         userRepository.findAll().forEach(System.out::println);
     }
