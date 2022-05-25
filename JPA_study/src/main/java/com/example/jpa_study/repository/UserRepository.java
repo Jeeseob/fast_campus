@@ -14,4 +14,24 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository <User, Long> {
+    List<User> findByName(String name);
+
+    User findByEmail(String email);
+
+    User getByEmail(String email);
+
+    User readByEmail(String email);
+
+    User queryByEmail(String email);
+
+    User searchByEmail(String email);
+
+    User streamByEmail(String email);
+
+    User findUserByEmail(String email);
+
+
+    User findTop1ByName(String name);
+
+    User findFirst1ByName(String name);
 }
