@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,20 +30,24 @@ class UserRepositoryTest {
 
     @Test
     void select() {
-        System.out.println(userRepository.findByName("martin"));
-
-        System.out.println("findByEmail : " + userRepository.findByEmail("martin@fastcampus.com"));
-        System.out.println("getByEmail : " + userRepository.getByEmail("martin@fastcampus.com"));
-        System.out.println("readByEmail : " + userRepository.readByEmail("martin@fastcampus.com"));
-        System.out.println("queryByEmail : " + userRepository.queryByEmail("martin@fastcampus.com"));
-        System.out.println("searchByEmail : " + userRepository.searchByEmail("martin@fastcampus.com"));
-        System.out.println("streamByEmail : " + userRepository.streamByEmail("martin@fastcampus.com"));
-        System.out.println("findUserByEmail : " + userRepository.findUserByEmail("martin@fastcampus.com"));
-
-        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
-        System.out.println("findFirst1ByName : " + userRepository.findFirst1ByName("martin"));
+//        System.out.println(userRepository.findByName("martin"));
+//
+//        System.out.println("findByEmail : " + userRepository.findByEmail("martin@fastcampus.com"));
+//        System.out.println("getByEmail : " + userRepository.getByEmail("martin@fastcampus.com"));
+//        System.out.println("readByEmail : " + userRepository.readByEmail("martin@fastcampus.com"));
+//        System.out.println("queryByEmail : " + userRepository.queryByEmail("martin@fastcampus.com"));
+//        System.out.println("searchByEmail : " + userRepository.searchByEmail("martin@fastcampus.com"));
+//        System.out.println("streamByEmail : " + userRepository.streamByEmail("martin@fastcampus.com"));
+//        System.out.println("findUserByEmail : " + userRepository.findUserByEmail("martin@fastcampus.com"));
+//
+//        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
+//        System.out.println("findFirst1ByName : " + userRepository.findFirst1ByName("martin"));
 
         System.out.println("findByEmailAndName : " + userRepository.findByEmailAndName("martin@fastcampus.com", "martin"));
+        System.out.println("findByEmailOrName : " + userRepository.findByEmailOrName("martin@fastcampus.com", "martin"));
+
+        System.out.println("findByCreateAtAfter : " + userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
+        System.out.println("findByIdAfter : " + userRepository.findByIdAfter(3L));
 
     }
 

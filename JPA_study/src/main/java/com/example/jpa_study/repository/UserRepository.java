@@ -4,6 +4,7 @@ import com.example.jpa_study.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,4 +39,10 @@ public interface UserRepository extends JpaRepository <User, Long> {
     // Query 2
 
     List<User> findByEmailAndName(String Email, String name);
+
+    List<User> findByEmailOrName(String Email, String name);
+
+    List<User> findByCreatedAtAfter(LocalDateTime time);
+
+    List<User> findByIdAfter(Long id);
 }
