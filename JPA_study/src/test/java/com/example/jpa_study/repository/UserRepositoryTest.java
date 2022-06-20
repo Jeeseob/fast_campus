@@ -40,7 +40,7 @@ class UserRepositoryTest {
 //        System.out.println("streamByEmail : " + userRepository.streamByEmail("martin@fastcampus.com"));
 //        System.out.println("findUserByEmail : " + userRepository.findUserByEmail("martin@fastcampus.com"));
 //
-//        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
+//        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));`
 //        System.out.println("findFirst1ByName : " + userRepository.findFirst1ByName("martin"));
 
         System.out.println("findByEmailAndName : " + userRepository.findByEmailAndName("martin@fastcampus.com", "martin"));
@@ -48,7 +48,10 @@ class UserRepositoryTest {
 
         System.out.println("findByCreateAtAfter : " + userRepository.findByCreatedAtAfter(LocalDateTime.now().minusDays(1L)));
         System.out.println("findByIdAfter : " + userRepository.findByIdAfter(3L));
+        System.out.println("findByCreateAtGreaterThan : " + userRepository.findByCreatedAtGreaterThan(LocalDateTime.now().minusDays(1)));
 
+        System.out.println("findByCreateAtBetween : " + userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(1)));
+        System.out.println("findByIdBetween : " + userRepository.findByIdBetween(1L, 3L));
     }
 
 
