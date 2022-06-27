@@ -32,7 +32,7 @@ class UserRepositoryTest {
     void select() {
 //        System.out.println(userRepository.findByName("martin"));
 //
-//        System.out.println("findByEmail : " + userRepository.findByEmail("martin@fastcampus.com"));
+//        System.out.println("findByEmail : " + userRepository.findByEmail("martin@fastcampus.com"));R
 //        System.out.println("getByEmail : " + userRepository.getByEmail("martin@fastcampus.com"));
 //        System.out.println("readByEmail : " + userRepository.readByEmail("martin@fastcampus.com"));
 //        System.out.println("queryByEmail : " + userRepository.queryByEmail("martin@fastcampus.com"));
@@ -52,6 +52,27 @@ class UserRepositoryTest {
 
         System.out.println("findByCreateAtBetween : " + userRepository.findByCreatedAtBetween(LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(1)));
         System.out.println("findByIdBetween : " + userRepository.findByIdBetween(1L, 3L));
+
+        System.out.println("findByIdIsNotNull : " + userRepository.findByIdIsNotNull());
+
+        // 오류 발생 ( NotEmpty는 Collection type의 Not empty를 의미한다. )
+        System.out.println("findByAddressesIsNotEmpty" + userRepository.findByAddressesIsNotEmpty());
+
+        // 일반적으로, query의 결과를 다시 query에 넣어야할 때 사용된다.
+        System.out.println("findByNameIn : " + userRepository.findByNameIn(Lists.newArrayList("martin", "dennis")));
+
+        System.out.println("findByNameStartingWith : " + userRepository.findByNameStartingWith("mar"));
+        System.out.println("findByNameEndingWith : " + userRepository.findByNameEndingWith("tin"));
+        System.out.println("findByNameContainWith : " + userRepository.findByNameContaining("ar"));
+
+        // Like는 코드 가독성이 좋지 않아, 위의 3가지 함수처럼 구분해서 만듬.
+        System.out.println("findByNameLike : " + userRepository.findByNameLike("ma%"));
+        System.out.println("findByNameLike : " + userRepository.findByNameLike("%tin"));
+        System.out.println("findByNameLike : " + userRepository.findByNameLike("%art%"));
+
+
+
+
     }
 
 
