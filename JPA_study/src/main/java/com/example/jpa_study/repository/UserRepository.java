@@ -38,6 +38,11 @@ public interface UserRepository extends JpaRepository <User, Long> {
 
     List<User> findTop1ByName(String name);
 
+    List<User> findLast1ByName(String name); // Id기준 마지막 데이터.. -> 정상적으로 동작하지 않음.
+
+    List<User> findTop1ByNameOrderByIdDesc(String name); // Id를 기준으로 오름차순정렬 이후 가장 높은것
+
+
     List<User> findFirst1ByName(String name);
 
     // Query 2
@@ -69,5 +74,4 @@ public interface UserRepository extends JpaRepository <User, Long> {
     List<User> findByNameContaining(String name);
 
     List<User> findByNameLike(String name);
-
 }
