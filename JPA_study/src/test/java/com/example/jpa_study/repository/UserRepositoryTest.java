@@ -2,13 +2,12 @@ package com.example.jpa_study.repository;
 
 import com.example.jpa_study.domain.User;
 import org.assertj.core.util.Lists;
+import org.hibernate.criterion.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -69,7 +68,6 @@ class UserRepositoryTest {
         System.out.println("findByNameLike : " + userRepository.findByNameLike("ma%"));
         System.out.println("findByNameLike : " + userRepository.findByNameLike("%tin"));
         System.out.println("findByNameLike : " + userRepository.findByNameLike("%art%"));
-
     }
 
     @Test
@@ -77,6 +75,10 @@ class UserRepositoryTest {
         System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
         System.out.println("findLast1ByName : " + userRepository.findLast1ByName("martin"));
         System.out.println("findTop1ByNameOrderByIdDesc : " + userRepository.findTop1ByNameOrderByIdDesc("martin"));
+        // Desc -> 역순 / Asc -> 정순 정렬 / 앞에 나온 것 부터 순서대로
+        System.out.println("findFirstByNameOrderByIdDescEmailAsc : " + userRepository.findFirstByNameOrderByIdDescEmailAsc("martin"));
+        System.out.println("findFirstByNameWithSortParmas : " + userRepository.findFirstByName("martin", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email"))));
+
     }
 
 
