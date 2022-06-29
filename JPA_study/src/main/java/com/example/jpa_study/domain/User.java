@@ -26,6 +26,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}) // 여러개의 column의 조합이 유니크 해야할때
 public class User {
     @Id
     @GeneratedValue
@@ -37,9 +38,15 @@ public class User {
     @NonNull
     private String email;
 
+    @Column(updatable = false) // 단독적으로 column이 유니크할때
     private LocalDateTime createdAt;
+
+    @Column(insertable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Address> addresses;
+    @Transient // DB에 저장하지 않고, 객체와 생명주기를 같이한다.
+    private String testData;
+
+//    @OneToMany(fetch = FetchType.EAGER)
+//    private List<Address> addresses;
 }

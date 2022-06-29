@@ -55,7 +55,7 @@ class UserRepositoryTest {
         System.out.println("findByIdIsNotNull : " + userRepository.findByIdIsNotNull());
 
         // 오류 발생 ( NotEmpty는 Collection type의 Not empty를 의미한다. )
-        System.out.println("findByAddressesIsNotEmpty" + userRepository.findByAddressesIsNotEmpty());
+        // System.out.println("findByAddressesIsNotEmpty" + userRepository.findByAddressesIsNotEmpty());
 
         // 일반적으로, query의 결과를 다시 query에 넣어야할 때 사용된다.
         System.out.println("findByNameIn : " + userRepository.findByNameIn(Lists.newArrayList("martin", "dennis")));
@@ -82,10 +82,20 @@ class UserRepositoryTest {
 
         System.out.println("findByNameWithPaging : " + userRepository.findByName("martin", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))).getContent());
         System.out.println("findByNameWithPaging : " + userRepository.findByName("martin", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))).getTotalPages());
-
-
     }
 
+    @Test
+    void insertAndUpdate(){
+        User user = new User();
+        user.setName("martin");
+        user.setEmail("martin2@fastcampus.com");
+
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("marrrrrtin");
+        userRepository.save(user2);
+    }
 
     @Test
     @Transactional
