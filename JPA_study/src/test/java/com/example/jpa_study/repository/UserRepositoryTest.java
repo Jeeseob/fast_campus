@@ -29,18 +29,18 @@ class UserRepositoryTest {
 
     @Test
     void select() {
-//        System.out.println(userRepository.findByName("martin"));
-//
-//        System.out.println("findByEmail : " + userRepository.findByEmail("martin@fastcampus.com"));R
-//        System.out.println("getByEmail : " + userRepository.getByEmail("martin@fastcampus.com"));
-//        System.out.println("readByEmail : " + userRepository.readByEmail("martin@fastcampus.com"));
-//        System.out.println("queryByEmail : " + userRepository.queryByEmail("martin@fastcampus.com"));
-//        System.out.println("searchByEmail : " + userRepository.searchByEmail("martin@fastcampus.com"));
-//        System.out.println("streamByEmail : " + userRepository.streamByEmail("martin@fastcampus.com"));
-//        System.out.println("findUserByEmail : " + userRepository.findUserByEmail("martin@fastcampus.com"));
-//
-//        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));`
-//        System.out.println("findFirst1ByName : " + userRepository.findFirst1ByName("martin"));
+        System.out.println(userRepository.findByName("martin"));
+
+        System.out.println("findByEmail : " + userRepository.findByEmail("martin@fastcampus.com"));
+        System.out.println("getByEmail : " + userRepository.getByEmail("martin@fastcampus.com"));
+        System.out.println("readByEmail : " + userRepository.readByEmail("martin@fastcampus.com"));
+        System.out.println("queryByEmail : " + userRepository.queryByEmail("martin@fastcampus.com"));
+        System.out.println("searchByEmail : " + userRepository.searchByEmail("martin@fastcampus.com"));
+        System.out.println("streamByEmail : " + userRepository.streamByEmail("martin@fastcampus.com"));
+        System.out.println("findUserByEmail : " + userRepository.findUserByEmail("martin@fastcampus.com"));
+
+        System.out.println("findTop1ByName : " + userRepository.findTop1ByName("martin"));
+        System.out.println("findFirst1ByName : " + userRepository.findFirst1ByName("martin"));
 
         System.out.println("findByEmailAndName : " + userRepository.findByEmailAndName("martin@fastcampus.com", "martin"));
         System.out.println("findByEmailOrName : " + userRepository.findByEmailOrName("martin@fastcampus.com", "martin"));
@@ -78,6 +78,11 @@ class UserRepositoryTest {
         // Desc -> 역순 / Asc -> 정순 정렬 / 앞에 나온 것 부터 순서대로
         System.out.println("findFirstByNameOrderByIdDescEmailAsc : " + userRepository.findFirstByNameOrderByIdDescEmailAsc("martin"));
         System.out.println("findFirstByNameWithSortParmas : " + userRepository.findFirstByName("martin", Sort.by(Sort.Order.desc("id"), Sort.Order.asc("email"))));
+
+
+        System.out.println("findByNameWithPaging : " + userRepository.findByName("martin", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))).getContent());
+        System.out.println("findByNameWithPaging : " + userRepository.findByName("martin", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))).getTotalPages());
+
 
     }
 

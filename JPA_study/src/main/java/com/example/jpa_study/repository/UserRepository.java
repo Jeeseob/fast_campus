@@ -1,6 +1,8 @@
 package com.example.jpa_study.repository;
 
 import com.example.jpa_study.domain.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -80,6 +82,11 @@ public interface UserRepository extends JpaRepository <User, Long> {
 
     // Sort 방식을 입력하여 넣을 수 있어 자유도가 높아지는 부분은 장점이다, 코드 가독성에 좋다.
     List<User> findFirstByName(String name, Sort sort);
+
+
+    // Paging
+    // Page Interface ->  Page->response, Pageable->request
+    Page<User> findByName(String name, Pageable pageable);
 
 
 }
