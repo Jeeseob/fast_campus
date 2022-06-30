@@ -35,18 +35,64 @@ public class User {
     @NonNull
     private String name;
 
+    // Enum의 값을 꼭 String형태로 변경해야한다. 그렇지 않으면 기본적으로 0,1,2 등 숫자 순서대로 저장되어 spring에서 매칭을 시키는데 type들의 위치가 변경되면 나중에 문제가 발생할 수 있다.
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
+
     @NonNull
     private String email;
 
     @Column(updatable = false) // 단독적으로 column이 유니크할때
     private LocalDateTime createdAt;
 
-    @Column(insertable = false)
+    //@Column(insertable = false)
     private LocalDateTime updatedAt;
 
     @Transient // DB에 저장하지 않고, 객체와 생명주기를 같이한다.
     private String testData;
 
+
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private List<Address> addresses;
+
+
+
+    @PrePersist // insert 전
+    public void prePersist() {
+        System.out.println(">>> prePersist");
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        System.out.println(">>> preUpdate");
+        this.updatedAt = LocalDateTime.now();
+    }
+
+//    @PostPersist
+//    public void postPresist() {
+//        System.out.println(">>> postPersist");
+
+//    }
+//
+//    @PostUpdate
+//    public void postUpdate(){
+//        System.out.println(">>> postUpdate");
+//    }
+//
+//    @PreRemove
+//    public void preRemove(){
+//        System.out.println(">>> preRemove");
+//    }
+//
+//    @PostRemove
+//    public void postRemove(){
+//        System.out.println(">>> postRemove");
+//    }
+//
+//    @PostLoad // Select 이후, preLoad는 없다
+//    public void postLoad(){
+//        System.out.println(">>> postLoad");
+//    }
 }

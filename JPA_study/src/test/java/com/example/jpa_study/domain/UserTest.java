@@ -1,6 +1,8 @@
 package com.example.jpa_study.domain;
 
+import com.example.jpa_study.repository.UserRepository;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 

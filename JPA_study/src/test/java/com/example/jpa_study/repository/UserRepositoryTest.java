@@ -1,5 +1,6 @@
 package com.example.jpa_study.repository;
 
+import com.example.jpa_study.domain.Gender;
 import com.example.jpa_study.domain.User;
 import org.assertj.core.util.Lists;
 import org.hibernate.criterion.Order;
@@ -82,30 +83,6 @@ class UserRepositoryTest {
 
         System.out.println("findByNameWithPaging : " + userRepository.findByName("martin", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))).getContent());
         System.out.println("findByNameWithPaging : " + userRepository.findByName("martin", PageRequest.of(0, 1, Sort.by(Sort.Order.desc("id")))).getTotalPages());
-    }
-
-    @Test
-    void insertAndUpdate(){
-        User user = new User();
-        user.setName("martin");
-        user.setEmail("martin2@fastcampus.com");
-
-        userRepository.save(user);
-
-        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
-        user2.setName("marrrrrtin");
-        userRepository.save(user2);
-    }
-
-    @Test
-    @Transactional
-    void update() {
-        userRepository.save(new User("david", "david@fascampus.com"));
-
-        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
-        user.setEmail("martin-update@fastcampus.com");
-
-        userRepository.save(user);
     }
 
 
@@ -194,5 +171,83 @@ class UserRepositoryTest {
 
         userRepository.saveAll(Lists.newArrayList(user1, user2));
         List<User> users = userRepository.findAll();
+    }
+
+    @Test
+    void insertAndUpdate(){
+        User user = new User();
+        user.setName("martin");
+        user.setEmail("martin2@fastcampus.com");
+
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("marrrrrtin");
+        userRepository.save(user2);
+    }
+
+
+    @Test
+    void enumTest() {
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setGender(Gender.MALE);
+
+        userRepository.save(user);
+        userRepository.findAll().forEach(System.out::println);
+
+        System.out.println(userRepository.findRowRecord().get("gender"));
+    }
+
+
+    @Test
+    @Transactional
+    void update() {
+        userRepository.save(new User("david", "david@fascampus.com"));
+
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user.setEmail("martin-update@fastcampus.com");
+
+        userRepository.save(user);
+    }
+
+    @Test
+    void listenerTest() {
+        User user = new User();
+        user.setEmail("martin2@fastcampus.com");
+        user.setName("martin");
+
+        userRepository.save(user);
+
+        User user2 = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+        user2.setName("marrrrtin");
+
+        userRepository.save(user2);
+        userRepository.deleteById(4L);
+    }
+
+
+    @Test
+    void prePersistTest() {
+        User user = new User();
+
+        user.setName("martin");
+        user.setEmail("martin2@fastcampus.com");
+
+        userRepository.save(user);
+
+        System.out.println(userRepository.findByEmail("martin2@fastcampus.com"));
+    }
+
+    @Test
+    void  preUpdateTest() {
+        User user = userRepository.findById(1L).orElseThrow(RuntimeException::new);
+
+        System.out.println("as-is : " + user);
+
+        user.setName("martin22");
+        userRepository.save(user);
+
+        System.out.println("to-be : " + userRepository.findAll().get(0));
+
     }
 }
