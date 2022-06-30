@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Data
-public class Book {
+@EntityListeners(value = MyEntityLisener.class)
+public class Book implements Auditable{
     @Id
     @GeneratedValue
     private Long id;
@@ -28,14 +29,14 @@ public class Book {
     private LocalDateTime updatedAt;
 
 
-    @PrePersist
-    private void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    private void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
+//    @PrePersist
+//    private void prePersist() {
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    private void preUpdate() {
+//        this.updatedAt = LocalDateTime.now();
+//    }
 }

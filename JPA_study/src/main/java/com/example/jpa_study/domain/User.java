@@ -13,21 +13,21 @@ import java.util.Objects;
  * @CreateAt : 2022/05/10
  */
 
+
 /**
  * NoArgsConstructor : JPA에서는 NoArgsConstructor가 필수적으로 필요하다.
  * Builder : 객체 생성 후 Field값을 제공
  */
 
-@Getter
-@Setter
-@ToString
+@NoArgsConstructor
 @RequiredArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@EntityListeners(value = MyEntityLisener.class)
 @Table(indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}) // 여러개의 column의 조합이 유니크 해야할때
-public class User {
+public class User implements Auditable{
     @Id
     @GeneratedValue
     private Long id;
@@ -57,18 +57,18 @@ public class User {
 
 
 
-    @PrePersist // insert 전
-    public void prePersist() {
-        System.out.println(">>> prePersist");
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        System.out.println(">>> preUpdate");
-        this.updatedAt = LocalDateTime.now();
-    }
+//    @PrePersist // insert 전
+//    public void prePersist() {
+//        System.out.println(">>> prePersist");
+//        this.createdAt = LocalDateTime.now();
+//        this.updatedAt = LocalDateTime.now();
+//    }
+//
+//    @PreUpdate
+//    public void preUpdate() {
+//        System.out.println(">>> preUpdate");
+//        this.updatedAt = LocalDateTime.now();
+//    }
 
 //    @PostPersist
 //    public void postPresist() {
