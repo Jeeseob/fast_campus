@@ -22,7 +22,8 @@ class BookRepositoryTest {
     void BookTest() {
         Book book = new Book();
         book.setName("Jpa");
-        book.setAuthor("fastcampus");
+        book.setAuthorId(1L);
+        book.setPublisherId(1L);
 
         bookRepository.save(book);
         System.out.println(bookRepository.findAll());

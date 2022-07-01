@@ -1,10 +1,12 @@
 package com.example.jpa_study.domain;
 
+import com.example.jpa_study.Listener.Auditable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 /**
  * @Author : Jeeseob
@@ -14,29 +16,19 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Data
-@EntityListeners(value = MyEntityLisener.class)
-public class Book implements Auditable{
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+public class Book extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
 
     private String name;
 
-    private String author;
+    private String category;
 
-    private LocalDateTime createdAt;
+    private Long authorId;
 
-    private LocalDateTime updatedAt;
+    private Long publisherId;
 
-
-//    @PrePersist
-//    private void prePersist() {
-//        this.createdAt = LocalDateTime.now();
-//        this.updatedAt = LocalDateTime.now();
-//    }
-//
-//    @PreUpdate
-//    private void preUpdate() {
-//        this.updatedAt = LocalDateTime.now();
-//    }
 }

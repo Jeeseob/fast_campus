@@ -1,12 +1,11 @@
 package com.example.jpa_study.domain;
 
+import com.example.jpa_study.Listener.UserEntityListener;
 import lombok.*;
-import org.hibernate.Hibernate;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * @Author : Jeeseob
@@ -23,11 +22,13 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Data
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Builder
-@EntityListeners(value = MyEntityLisener.class)
-@Table(indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}) // 여러개의 column의 조합이 유니크 해야할때
-public class User implements Auditable{
+@EntityListeners(value = UserEntityListener.class)
+// @Table(indexes = {@Index(columnList = "name")}, uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}) // 여러개의 column의 조합이 유니크 해야할때
+public class User extends BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -42,14 +43,16 @@ public class User implements Auditable{
     @NonNull
     private String email;
 
+    @CreatedDate
     @Column(updatable = false) // 단독적으로 column이 유니크할때
     private LocalDateTime createdAt;
 
-    //@Column(insertable = false)
-    private LocalDateTime updatedAt;
-
-    @Transient // DB에 저장하지 않고, 객체와 생명주기를 같이한다.
-    private String testData;
+//    //@Column(insertable = false)
+//    @LastModifiedDate // AuditingEntity에서 마지마 업데이트로 처리
+//    private LocalDateTime updatedAt;
+//
+//    @Transient // DB에 저장하지 않고, 객체와 생명주기를 같이한다.
+//    private String testData;
 
 
 //    @OneToMany(fetch = FetchType.EAGER)
